@@ -1,19 +1,33 @@
 import { useState } from "react";
 
 export function App() {
-  const [count, setCount] = useState(0);
-  const [hide, setHide] = useState(false);
-
-  if (hide) return null;
+  const [value, setValue] = useState("");
+  const [list, setList] = useState([
+    { id: "1", label: "Fazer café" },
+    { id: "2", label: "Fazer café" },
+    { id: "3", label: "Fazer almoço" },
+    { id: "4", label: "Fazer janta" },
+  ]);
 
   return (
     <div>
-      {hide && <p>Teste1</p>}
-      {!hide && <p>Teste2</p>}
-
-      {hide ? <p>Teste1</p> : <p>Teste2</p>}
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-      <button onClick={() => setHide(!hide)}>Toggle</button>
+      <input value={value} on onChange={(e) => setValue(e.target.value)} />
+      <button
+        onClick={() => {
+          setList([
+            ...list,
+            { id: (list.length + 1).toString(), label: value },
+          ]);
+          setValue("");
+        }}
+      >
+        Adicionar
+      </button>
+      <ol>
+        {list.map((listItem) => (
+          <li key={listItem.id}>{listItem.label}</li>
+        ))}
+      </ol>
     </div>
   );
 }
