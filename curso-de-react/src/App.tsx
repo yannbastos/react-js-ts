@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { InputAdd } from "./components/InputAdd";
+import { TodoItem } from "./components/TodoItem";
 
 export function App() {
   const [list, setList] = useState([
@@ -10,24 +11,48 @@ export function App() {
     { id: "4", label: "Fazer janta", complete: false },
   ]);
 
+  const handleAdd = (value: string) => {
+    setList([
+      ...list,
+      {
+        id: (list.length + 1).toString(),
+        complete: false,
+        label: value,
+      },
+    ]);
+  };
+
   return (
     <div>
-      <InputAdd
-        onAdd={(value) =>
-          setList([
-            ...list,
-            {
-              id: (list.length + 1).toString(),
-              complete: false,
-              label: value,
-            },
-          ])
-        }
-      />
+      <InputAdd onAdd={handleAdd} />
 
       <ol>
         {list.map((listItem) => (
-          <li key={listItem.id}>
+          <TodoItem
+            key={listItem.id}
+            id={listItem.id}
+            label={listItem.label}
+            complete={listItem.complete}
+            onRemove={() =>
+              setList([...list.filter((item) => item.id !== listItem.id)])
+            }
+            onComplete={() =>
+              setList([
+                ...list.map((item) => ({
+                  ...item,
+                  complete: item.id === listItem.id ? true : item.complete,
+                })),
+              ])
+            }
+          />
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+{
+  /* <li key={listItem.id}>
             {listItem.label}
 
             {listItem.complete ? "Concluído" : ""}
@@ -52,9 +77,5 @@ export function App() {
             >
               Remover
             </button>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
+          </li> */
 }
