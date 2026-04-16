@@ -15,7 +15,7 @@ export function App() {
     <div>
       <InputAdd />
 
-      <input value={value} on onChange={(e) => setValue(e.target.value)} />
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
       <button
         onClick={() => {
           setList([
