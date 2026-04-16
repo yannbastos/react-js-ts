@@ -25,7 +25,17 @@ export function App() {
       </button>
       <ol>
         {list.map((listItem) => (
-          <li key={listItem.id}>{listItem.label}</li>
+          <li key={listItem.id}>
+            {listItem.label}
+
+            <button
+              onClick={() =>
+                setList([...list.filter((item) => item.id !== listItem.id)])
+              }
+            >
+              Remover
+            </button>
+          </li>
         ))}
       </ol>
     </div>
