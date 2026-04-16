@@ -3,7 +3,6 @@ import { useState } from "react";
 import { InputAdd } from "./components/InputAdd";
 
 export function App() {
-  const [value, setValue] = useState("");
   const [list, setList] = useState([
     { id: "1", label: "Fazer café", complete: false },
     { id: "2", label: "Fazer café", complete: false },
@@ -13,20 +12,19 @@ export function App() {
 
   return (
     <div>
-      <InputAdd />
-
-      <input value={value} onChange={(e) => setValue(e.target.value)} />
-      <button
-        onClick={() => {
+      <InputAdd
+        onAdd={(value) =>
           setList([
             ...list,
-            { id: (list.length + 1).toString(), label: value, complete: false },
-          ]);
-          setValue("");
-        }}
-      >
-        Adicionar
-      </button>
+            {
+              id: (list.length + 1).toString(),
+              complete: false,
+              label: value,
+            },
+          ])
+        }
+      />
+
       <ol>
         {list.map((listItem) => (
           <li key={listItem.id}>
