@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { InputAdd } from "./components/InputAdd";
+
 export function App() {
   const [value, setValue] = useState("");
   const [list, setList] = useState([
@@ -11,6 +13,8 @@ export function App() {
 
   return (
     <div>
+      <InputAdd />
+
       <input value={value} on onChange={(e) => setValue(e.target.value)} />
       <button
         onClick={() => {
